@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Heart Failure Risk Predictor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 3rem 2.5rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+      max-width: 720px;
+      width: 100%;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      color: #333333;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem 1.5rem;
+    }
+
+    input {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: box-shadow 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+      border-color: #007bff;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+      text-align: center;
+    }
+
+    button {
+      background: linear-gradient(to right, #667eea, #764ba2);
+      color: white;
+      padding: 0.9rem 2rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .result {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      color: #333;
+      text-align: center;
+      background-color: #f0f0f0;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 640px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Heart Failure Risk Predictor</h1>
+    <form method="POST" action="/predict">
+      <input type="number" name="age" placeholder="Age" required>
+      <input type="number" name="anaemia" placeholder="Anaemia (0 or 1)" required>
+      <input type="number" name="creatinine_phosphokinase" placeholder="CPK Level" required>
+      <input type="number" name="diabetes" placeholder="Diabetes (0 or 1)" required>
+      <input type="number" name="ejection_fraction" placeholder="Ejection Fraction" required>
+      <input type="number" name="high_blood_pressure" placeholder="High BP (0 or 1)" required>
+      <input type="number" name="platelets" placeholder="Platelets" required>
+      <input type="number" name="serum_creatinine" placeholder="Serum Creatinine" required>
+      <input type="number" name="serum_sodium" placeholder="Serum Sodium" required>
+      <input type="number" name="sex" placeholder="Sex (0 = F, 1 = M)" required>
+      <input type="number" name="smoking" placeholder="Smoking (0 or 1)" required>
+      <input type="number" name="time" placeholder="Follow-up Time (days)" required>
+
+      <div class="full-width">
+        <button type="submit">Predict</button>
+      </div>
+    </form>
+
+    {% if prediction_text %}
+    <div class="result">
+      <strong>{{ prediction_text }}</strong>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>
